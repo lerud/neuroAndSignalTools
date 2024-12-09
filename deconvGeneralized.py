@@ -9,7 +9,7 @@ import time
 
 pyfftw.interfaces.cache.enable()
 pyfftw.interfaces.cache.set_keepalive_time(600)
-
+planner_effort = "FFTW_ESTIMATE"
 
 def deconvMain(
     regressor, response, eps, windowStart=0, windowEnd=None, avgRegSpec=None
@@ -64,7 +64,7 @@ def deconvMain(
     NFFT = len(regressorPadded) * 2
     # print(NFFT)
     calc_fft_x = fftw(
-        regressorPadded, n=NFFT, planner_effort="FFTW_PATIENT", auto_contiguous=True
+        regressorPadded, n=NFFT, planner_effort=planner_effort, auto_contiguous=True
     )
     fft_x = calc_fft_x()
     t2 = time.time()
@@ -75,7 +75,7 @@ def deconvMain(
         responsePadded,
         n=NFFT,
         axis=0,
-        planner_effort="FFTW_PATIENT",
+        planner_effort=planner_effort,
         auto_contiguous=True,
     )
     fft_y = calc_fft_y()
@@ -120,9 +120,9 @@ def deconvMain(
     )
 
     calc_w = ifftw(
-        fraction, n=NFFT, axis=0, planner_effort="FFTW_PATIENT", auto_contiguous=True
+        fraction, n=NFFT, axis=0, planner_effort=planner_effort, auto_contiguous=True
     )
-    # calc_w=ifftw(numerator, n=NFFT, axis=0, planner_effort='FFTW_PATIENT', auto_contiguous=True)
+    # calc_w=ifftw(numerator, n=NFFT, axis=0, planner_effort=planner_effort, auto_contiguous=True)
 
     w = calc_w()
     t8 = time.time()

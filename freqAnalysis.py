@@ -195,6 +195,8 @@ def createPredictorTimeseries(times, fs, lenSignal, values=None):
 
     if values is None:
         values = np.ones(len(times)) / len(times)
+    elif np.isscalar(values):
+        values = np.ones(len(times)) * values
 
     predTimeseries = np.zeros(lenSignal)
     times = np.round(times * fs).astype(int)
