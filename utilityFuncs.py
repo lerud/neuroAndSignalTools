@@ -6,5 +6,6 @@ def doRsync(inputFile):
     sourceHome = "/Volumes/Seagate/map/"
     os.chdir(sourceHome)
     inputFile = inputFile.replace(sourceHome, "")
-    subprocess.run(["rsync", "-avhR", "--progress", inputFile, "/Users/karl/map"])
+    print(inputFile)
+    subprocess.run("rsync -avhR --progress " + inputFile + " /Users/karl/map", shell=True)
     return "/Users/karl/map/" + inputFile
